@@ -31,7 +31,7 @@ public class BucketOrderServiceImpl implements BucketOrderService {
 		}
 	}
 	
-	public static BucketOrderService getBucketOrderServiceImpl() {
+	public static BucketOrderService getBucketOrderService() {
 		if (bucketOrderServiceImpl == null) {
 			bucketOrderServiceImpl = new BucketOrderServiceImpl();
 		}

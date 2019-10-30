@@ -2,6 +2,9 @@ package ua.lviv.lgs.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -61,6 +64,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> readAll() {
 		return bookDao.readAll();
+	}
+
+	@Override
+	public Map<Integer, Book> readAllMap() { 
+		return readAll().stream().collect(Collectors.toMap(Book::getId, Function.identity()));
 	}
 
 }

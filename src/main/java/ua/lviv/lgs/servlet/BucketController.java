@@ -17,7 +17,7 @@ import ua.lviv.lgs.service.impl.BucketOrderServiceImpl;
 @WebServlet("/bucket")
 public class BucketController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private BucketOrderService bucketService = BucketOrderServiceImpl.getBucketOrderServiceImpl();   
+    private BucketOrderService bucketService = BucketOrderServiceImpl.getBucketOrderService();   
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Integer bookId = Integer.parseInt(request.getParameter("bookId"));
@@ -27,6 +27,16 @@ public class BucketController extends HttpServlet {
 		
 		BucketOrder bucket = new BucketOrder(userId, bookId, new Date());
 		bucketService.create(bucket);
+		
+		response.setContentType("text");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write("Success");
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Integer bucketId = Integer.parseInt(request.getParameter("bucketId"));
+		bucketService.delete(bucketId);
 		
 		response.setContentType("text");
 		response.setCharacterEncoding("UTF-8");

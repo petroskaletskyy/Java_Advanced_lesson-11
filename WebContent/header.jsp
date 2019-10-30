@@ -18,16 +18,16 @@
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item admin-addbook-option">
             <a class="nav-link" href="${pageContext.request.contextPath}/addBook.jsp">add Book</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item user-bucket-option">
             <a class="nav-link" href="${pageContext.request.contextPath}/bucket.jsp">Bucket</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-md-auto d-md-flex">
           <li class="nav-item">
-            <button class="nav-link logout">LogOut</button>
+            <button class="nav-link logout">Log Out</button>
           </li>
         </ul>
       </div>
