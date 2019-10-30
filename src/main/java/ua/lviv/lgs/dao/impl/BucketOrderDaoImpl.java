@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.lviv.lgs.dao.BucketOrderDao;
 import ua.lviv.lgs.domain.BucketOrder;
 import ua.lviv.lgs.utils.ConnectionUtils;
@@ -20,6 +22,8 @@ public class BucketOrderDaoImpl implements BucketOrderDao {
 	private static String READ_BY_ID = "select * from bucket_order where id =?";
 	private static String DELETE_BY_ID = "delete from bucket_order where id=?";
 
+	private static Logger LOGGER = Logger.getLogger(BucketOrderDaoImpl.class);
+	
 	private Connection connection;
 	private PreparedStatement preparedStatement;
 
@@ -41,7 +45,7 @@ public class BucketOrderDaoImpl implements BucketOrderDao {
 			result.next();
 			bucketOrder.setId(result.getInt(1));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		}
 
 		return bucketOrder;
@@ -65,7 +69,7 @@ public class BucketOrderDaoImpl implements BucketOrderDao {
 			bucketOrder = new BucketOrder(bucketOrderId, customerId, bookId, purchaseDate);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		}
 		return bucketOrder;
 	}
@@ -82,7 +86,7 @@ public class BucketOrderDaoImpl implements BucketOrderDao {
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		}
 
 	}
@@ -101,7 +105,7 @@ public class BucketOrderDaoImpl implements BucketOrderDao {
 				bucketOrderRecords.add(new BucketOrder(bucketOrderId, customerId, bookId, purchaseDate));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		}
 		return bucketOrderRecords;
 	}

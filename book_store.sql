@@ -7,7 +7,8 @@ CREATE TABLE customer (
     first_name VARCHAR(80) NOT NULL,
     last_name VARCHAR(80) NOT NULL,
     email VARCHAR(80) NOT NULL,
-    customer_role VARCHAR(60) NOT NULL
+    customer_role VARCHAR(60) NOT NULL,
+    customer_password VARCHAR(70) NOT NULL
 );
 
 CREATE TABLE book (

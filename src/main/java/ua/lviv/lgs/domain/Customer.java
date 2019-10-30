@@ -7,27 +7,33 @@ public class Customer {
 	private String lastName;
 	private String email;
 	private String customerRole;
+	private String customerPassword;
 
-	public Customer(int id, String firstName, String lastName, String email, String customerRole) {
+	public Customer(Integer id, String firstName, String lastName, String email, String customerRole,
+			String customerPassword) {
+		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.customerRole = customerRole;
+		this.customerPassword = customerPassword;
 	}
 
-	public Customer(String firstName, String lastName, String email, String customerPassword, String customerRole) {
+	public Customer(String firstName, String lastName, String email, String customerRole, String customerPassword) {
+		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.customerRole = customerRole;
+		this.customerPassword = customerPassword;
 	}
 
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -55,23 +61,32 @@ public class Customer {
 		this.email = email;
 	}
 
-	public String getRole() {
+	public String getCustomerRole() {
 		return customerRole;
 	}
 
-	public void setRole(String customerRole) {
+	public void setCustomerRole(String customerRole) {
 		this.customerRole = customerRole;
+	}
+
+	public String getCustomerPassword() {
+		return customerPassword;
+	}
+
+	public void setCustomerPassword(String customerPassword) {
+		this.customerPassword = customerPassword;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((customerPassword == null) ? 0 : customerPassword.hashCode());
+		result = prime * result + ((customerRole == null) ? 0 : customerRole.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((customerRole == null) ? 0 : customerRole.hashCode());
 		return result;
 	}
 
@@ -84,6 +99,16 @@ public class Customer {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
+		if (customerPassword == null) {
+			if (other.customerPassword != null)
+				return false;
+		} else if (!customerPassword.equals(other.customerPassword))
+			return false;
+		if (customerRole == null) {
+			if (other.customerRole != null)
+				return false;
+		} else if (!customerRole.equals(other.customerRole))
+			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -94,17 +119,15 @@ public class Customer {
 				return false;
 		} else if (!firstName.equals(other.firstName))
 			return false;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
 				return false;
 		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (customerRole == null) {
-			if (other.customerRole != null)
-				return false;
-		} else if (!customerRole.equals(other.customerRole))
 			return false;
 		return true;
 	}
@@ -112,7 +135,7 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", role=" + customerRole + "]";
+				+ ", customerRole=" + customerRole + ", customerPassword=" + customerPassword + "]";
 	}
 
 }

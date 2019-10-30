@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.lviv.lgs.dao.BookDao;
 import ua.lviv.lgs.domain.Book;
 import ua.lviv.lgs.utils.ConnectionUtils;
@@ -20,6 +22,8 @@ public class BookDaoImpl implements BookDao {
 	private static String UPDATE_BY_ID = "update book set book_name=?, book_description = ?, price = ?, isbn = ?, quantity = ? where id = ?";
 	private static String DELETE_BY_ID = "delete from book where id=?";
 
+	private static Logger LOGGER = Logger.getLogger(BookDaoImpl.class);
+	
 	private Connection connection;
 	private PreparedStatement preparedStatement;
 
@@ -42,7 +46,7 @@ public class BookDaoImpl implements BookDao {
 			result.next();
 			book.setId(result.getInt(1));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		}
 
 		return book;
@@ -67,7 +71,7 @@ public class BookDaoImpl implements BookDao {
 			book = new Book(bookId, bookName, bookDescription, price, isbn, quantity);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		}
 		return book;
 	}
@@ -83,7 +87,7 @@ public class BookDaoImpl implements BookDao {
 			preparedStatement.setInt(5, book.getQuantity());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		}
 		return book;
 	}
@@ -95,7 +99,7 @@ public class BookDaoImpl implements BookDao {
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		}
 	}
 
@@ -116,7 +120,7 @@ public class BookDaoImpl implements BookDao {
 				bookRecords.add(new Book(bookId, bookName, bookDescription, price, isbn, quantity));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		}
 		return bookRecords;
 	}

@@ -1,37 +1,33 @@
-#.gitignore for Java projects (using eclipse)
+#Default excludes
 
-# Linux
-# backup files
-*~
-
-# Windows
-# thumbnails
-Thumbs.db
-
-# Mac OS X
-# metadata
-.DS_Store
-# thumbnails
-._*
-
-# GIT
-.git/
-
-# Java
-*.class
-# packages 
+#Binaries
+*.7z
+*.dmg
+*.gz
+*.iso
 *.jar
+*.rar
+*.tar
+*.zip
 *.war
 *.ear
+*.sar
+*.class
 
-# Eclipse
+#eclipse project file
 .settings/
-.buildpath
 .classpath
 .project
 
-# Logging
-*.log
+### Maven ###
 
-# jME (binaries)
-*.so
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar

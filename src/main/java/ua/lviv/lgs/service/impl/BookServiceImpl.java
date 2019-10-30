@@ -3,6 +3,8 @@ package ua.lviv.lgs.service.impl;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import ua.lviv.lgs.dao.BookDao;
 import ua.lviv.lgs.dao.impl.BookDaoImpl;
 import ua.lviv.lgs.domain.Book;
@@ -10,21 +12,31 @@ import ua.lviv.lgs.service.BookService;
 
 public class BookServiceImpl implements BookService {
 
+	private static Logger LOGGER = Logger.getLogger(BookServiceImpl.class);
+	private static BookService bookServiceImpl;
+	
 	private BookDao bookDao;
 
-	public BookServiceImpl() {
+	private BookServiceImpl() {
 		try {
 			bookDao = new BookDaoImpl();
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error(e);
 		}
 	}
+	
+	public static BookService getBookService() {
+		if (bookServiceImpl == null) {
+			bookServiceImpl = new BookServiceImpl();
+		}
+		return bookServiceImpl;
+	} 
 
 	@Override
 	public Book create(Book t) {
