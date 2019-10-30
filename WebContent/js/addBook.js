@@ -14,11 +14,21 @@ $("button.addBook").click(function() {
 		quantity: quantity
 	};
 
-	debugger;
 	$.post("book", book, function(data) {
 		if (data == 'Success') {
 			alert('Success');
 		}
 	});
 
+});
+
+$("button.buy-product").click(function() {
+	var bookId = jQuery(this).attr("product-id");
+
+	$.post("bucket", {'bookId': bookId},
+			function(data) {
+				if (data == 'Success') {
+					$('[data-dismiss=modal]').trigger({type: "click"});
+				}
+	});
 });

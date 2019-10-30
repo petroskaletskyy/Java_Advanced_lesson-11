@@ -15,13 +15,12 @@ import ua.lviv.lgs.service.impl.BookServiceImpl;
 @WebServlet("/book")
 public class BookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	BookService bookService = BookServiceImpl.getBookService();
 
-	// create books
+	//create books
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		String isbn = request.getParameter("isbn");
@@ -30,17 +29,17 @@ public class BookController extends HttpServlet {
 
 		bookService.create(new Book(name, description, getValidatedPrice(price), isbn, getValidatedQuantity(quantity)));
 		response.setContentType("text");
-		response.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");	
 		response.getWriter().write("Success");
 	}
-
+	
 	private double getValidatedPrice(String price) {
 		if (price == null || price.isEmpty()) {
 			return 0;
 		}
 		return Double.parseDouble(price);
 	}
-
+	
 	private int getValidatedQuantity(String quantity) {
 		if (Integer.parseInt(quantity) < 0) {
 			return 0;
@@ -48,20 +47,24 @@ public class BookController extends HttpServlet {
 		return Integer.parseInt(quantity);
 	}
 
-	// get books
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
+	
+	//get books
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+
+		Book book = bookService.read(id);
+		request.setAttribute("book", book);
+		request.getRequestDispatcher("singleBook.jsp").forward(request, response);
 	}
 
-	// update books
+	//update books
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		super.doPut(req, resp);
 	}
-
-	// delete books
+	
+	//delete books
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

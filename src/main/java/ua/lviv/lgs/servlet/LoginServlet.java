@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -26,7 +27,9 @@ public class LoginServlet extends HttpServlet {
 
 		Customer customer = customerService.getCustomerByEmail(email);
 
-		if ((customer != null) && (customer.getCustomerPassword().equals(password))) {			
+		if ((customer != null) && (customer.getCustomerPassword().equals(password))) {	
+			HttpSession session = request.getSession(true);
+			session.setAttribute("customerId", customer.getId());
 
 			UserLogin userLogin = new UserLogin();
 			userLogin.destinationUrl = "cabinet.jsp";
