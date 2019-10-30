@@ -1,6 +1,7 @@
 package ua.lviv.lgs.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,15 +24,18 @@ public class RegistrationServlet extends HttpServlet {
 		String lastName = request.getParameter("lastName");
 		String email = request.getParameter("email");
 		String customerPassword = request.getParameter("password");
-		
+
 		if (!email.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty() && !customerPassword.isEmpty()) {
-			customerService.create(new Customer(firstName, lastName, email, UserRole.USER.toString(), customerPassword));
+			customerService
+					.create(new Customer(firstName, lastName, email, UserRole.USER.toString(), customerPassword));
 			HttpSession session = request.getSession(true);
 			session.setAttribute("userEmail", email);
 			session.setAttribute("userFirstName", firstName);
 		}
-		
-		request.getRequestDispatcher("cabinet.jsp").forward(request, response);
+
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write("Success");
 
 	}
 

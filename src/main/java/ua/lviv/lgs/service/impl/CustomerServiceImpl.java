@@ -14,7 +14,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 	private static Logger LOGGER = Logger.getLogger(CustomerServiceImpl.class);
 	private static CustomerService customerServiceImpl;
-	
 	private CustomerDao customerDao;
 
 	private CustomerServiceImpl() {

@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import ua.lviv.lgs.domain.Customer;
+import ua.lviv.lgs.dto.UserLogin;
 import ua.lviv.lgs.service.CustomerService;
 import ua.lviv.lgs.service.impl.CustomerServiceImpl;
 
@@ -18,18 +21,21 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String email = request.getParameter("login");
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
 		Customer customer = customerService.getCustomerByEmail(email);
 
-		if ((customer != null) && (customer.getCustomerPassword().equals(password))) {
-			request.setAttribute("userEmail", email);
-			request.setAttribute("userFirstName", customer.getFirstName());
-			request.getRequestDispatcher("cabinet.jsp").forward(request, response);
+		if ((customer != null) && (customer.getCustomerPassword().equals(password))) {			
 
+			UserLogin userLogin = new UserLogin();
+			userLogin.destinationUrl = "cabinet.jsp";
+			userLogin.userEmail = customer.getEmail();
+			String json = new Gson().toJson(userLogin);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(json);
 		}
-		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 
 }
